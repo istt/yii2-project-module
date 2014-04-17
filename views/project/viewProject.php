@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\grid\GridView;
 
 /**
  * @var yii\web\View $this
@@ -42,11 +43,42 @@ $this->params['breadcrumbs'][] = $this->title;
             'color_identifier',
             'target_budget',
             'actual_budget',
-            'created_at',
+            'created_at:datetime',
             'created_by',
-            'updated_at',
+            'updated_at:datetime',
             'updated_by',
         ],
     ]) ?>
 
+    <?php // @TODO: Add fancy display of department and contacts... ?>
+
+    <?php foreach ($model->companies as $c) echo $c->title; ?>
+    <?php foreach ($model->departments as $d) echo $d->title; ?>
+    <?php foreach ($model->contacts as $c) echo $c->first_name . ' ' . $c->last_name; ?>
+
 </div>
+
+<hr>
+<h3><?= \Yii::t('project', 'Tasks') ?></h3>
+<?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'title',
+            'description:ntext',
+            'start_time',
+            'end_time',
+            'status',
+            'priority',
+            // 'percent_complete',
+            // 'project_id',
+            // 'created_at',
+            // 'created_by',
+            // 'updated_at',
+            // 'updated_by',
+
+            ['class' => 'yii\grid\ActionColumn', 'controller' => 'task'],
+        ],
+    ]); ?>

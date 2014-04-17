@@ -8,6 +8,7 @@ use istt\project\models\ProjectSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use istt\project\models\TaskSearch;
 
 /**
  * ProjectController implements the CRUD actions for Project model.
@@ -48,8 +49,15 @@ class ProjectController extends Controller
      */
     public function actionView($id)
     {
+    	$model = $this->findModel($id);
+    	$searchModel = new TaskSearch();
+    	$searchModel->project_id = $model->primaryKey;
+    	$dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+
         return $this->render('viewProject', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+        	'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
         ]);
     }
 
@@ -63,6 +71,7 @@ class ProjectController extends Controller
         $model = new Project;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        	// @TODO: Handle many-many relationship here...
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('createProject', [

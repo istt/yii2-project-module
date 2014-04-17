@@ -27,8 +27,8 @@ use Yii;
  * @property integer $updated_at
  * @property integer $updated_by
  *
- * @property ProjectContact[] $projectContacts
- * @property TaskContact[] $taskContacts
+ * @property Contact[] $contacts
+ * @property Task[] $tasks
  */
 class Contact extends \yii\db\ActiveRecord
 {
@@ -91,16 +91,24 @@ class Contact extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getProjectContacts()
+    public function getProject()
     {
-        return $this->hasMany(ProjectContact::className(), ['contact_id' => 'id']);
+        return $this->hasMany(Project::className(), ['id' => 'project_id'])
+        ->viaTable(ProjectContact::tableName(), ['contact_id' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTaskContacts()
+    public function getTasks()
     {
-        return $this->hasMany(TaskContact::className(), ['contact_id' => 'id']);
+        return $this->hasMany(Task::className(), ['id' => 'task_id'])
+        ->viaTable(TaskContact::tableName(), ['contact_id' => 'id']);
+    }
+    /**
+     * Return the option list suitable for dropDownList
+     */
+    public static function options($q = NULL){
+      return \yii\helpers\ArrayHelper::map(self::find()->where($q)->all(), 'id', 'first_name');
     }
 }

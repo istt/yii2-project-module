@@ -24,12 +24,14 @@ use Yii;
  * @property integer $updated_at
  * @property integer $updated_by
  *
- * @property ProjectContact[] $projectContacts
- * @property ProjectDepartment[] $projectDepartments
+ * @property Contact[] $contacts
+ * @property Department[] $departments
  * @property Task[] $tasks
  */
 class Project extends \yii\db\ActiveRecord
 {
+	public $fieldDepartments = [];
+	public $fieldContacts = [];
     /**
      * @inheritdoc
      */
@@ -55,7 +57,9 @@ class Project extends \yii\db\ActiveRecord
             [['start_date', 'end_date'], 'safe'],
             [['status', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
             [['percent_complete', 'target_budget', 'actual_budget'], 'number'],
-            [['title', 'url', 'demo_url', 'color_identifier'], 'string', 'max' => 255]
+            [['title', 'url', 'demo_url', 'color_identifier'], 'string', 'max' => 255],
+            // Relation Data
+            [['fieldContacts', 'fieldDepartments'], 'safe'],
         ];
     }
 
@@ -81,23 +85,35 @@ class Project extends \yii\db\ActiveRecord
             'created_by' => Yii::t('project', 'Created By'),
             'updated_at' => Yii::t('project', 'Updated At'),
             'updated_by' => Yii::t('project', 'Updated By'),
+            'fieldContacts' => Yii::t('project', 'Contacts'),
+            'fieldDepartments' => Yii::t('project', 'Departments'),
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getProjectContacts()
+    public function getContacts()
     {
-        return $this->hasMany(ProjectContact::className(), ['project_id' => 'id']);
+        return $this->hasMany(Contact::className(), ['id' => 'contact_id'])
+        ->viaTable(ProjectContact::tableName(), ['project_id' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getProjectDepartments()
+    public function getDepartments()
     {
-        return $this->hasMany(ProjectDepartment::className(), ['project_id' => 'id']);
+        return $this->hasMany(Department::className(), ['id' => 'department_id'])
+        ->viaTable(ProjectDepartment::tableName(), ['project_id' => 'id']);
+    }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCompanies()
+    {
+        return $this->hasMany(Company::className(), ['id' => 'company_id'])
+        ->via('departments');
     }
 
     /**
@@ -106,5 +122,37 @@ class Project extends \yii\db\ActiveRecord
     public function getTasks()
     {
         return $this->hasMany(Task::className(), ['project_id' => 'id']);
+    }
+
+    /**
+     * Return the option list suitable for dropDownList
+     */
+    public static function options($q = NULL){
+      return \yii\helpers\ArrayHelper::map(self::find()->where($q)->all(), 'id', 'title');
+    }
+
+    /**
+     * Insert related departments after save
+     */
+    public function afterSave($insert){
+    	$new = $this->fieldDepartments;
+    	$old = \yii\helpers\ArrayHelper::getColumn($this->getDepartments()->all(), 'id');
+    	$addNew = array_diff($new, $old);
+    	$removeOld = array_diff($old, $new);
+    	// @TODO: Convert this to a batchInsert command
+    	foreach ($addNew as $department_id){
+    		$projectDepartment = new ProjectDepartment();
+    		$projectDepartment->department_id = $department_id;
+    		$projectDepartment->project_id = $this->primaryKey;
+    		$projectDepartment->save();
+    	}
+    	ProjectDepartment::deleteAll(['and', ['project_id' => $this->primaryKey], ['in', 'department_id', $removeOld]]);
+    	return parent::afterSave($insert);
+    }
+
+    public function afterFind(){
+    	$this->fieldContacts = \yii\helpers\ArrayHelper::getColumn($this->getContacts()->all(), 'id');
+    	$this->fieldDepartments = \yii\helpers\ArrayHelper::getColumn($this->getDepartments()->all(), 'id');
+    	return parent::afterFind();
     }
 }

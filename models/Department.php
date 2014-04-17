@@ -82,12 +82,27 @@ class Department extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Company::className(), ['id' => 'company_id']);
     }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDepartment()
+    {
+        return $this->hasOne(self::className(), ['id' => 'parent']);
+    }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getProjectDepartments()
+    public function getProjects()
     {
-        return $this->hasMany(ProjectDepartment::className(), ['department_id' => 'id']);
+        return $this->hasMany(Project::className(), ['id' => 'project_id'])
+        ->viaTable(ProjectDepartment::className(), ['department_id' => 'id']);
+    }
+
+    /**
+     * Return the option list suitable for dropDownList
+     */
+    public static function options($q = NULL){
+    	return \yii\helpers\ArrayHelper::map(self::find()->where($q)->all(), 'id', 'title');
     }
 }

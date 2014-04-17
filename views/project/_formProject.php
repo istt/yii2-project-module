@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use kartik\widgets\ActiveForm;
+use istt\project\models\Department;
+use istt\project\models\Contact;
 
 /**
  * @var yii\web\View $this
@@ -17,6 +19,22 @@ use kartik\widgets\ActiveForm;
 	<div class="row">
 	    <div class="col-xs-9">
 		    <?= $form->field($model, 'title', [ 'addon' => ['prepend' => ['content' => '<i class="glyphicon glyphicon-star"></i>']] ]) ?>
+
+			<?= $form->field($model, 'fieldDepartments')->widget(\kartik\widgets\Select2::className(), [
+			    'data' => ["" => "--- Select Departments ---"] + Department::options(),
+			    'options' => [ 'multiple' => TRUE, ],
+			    'pluginOptions' => [ 'allowClear' => true ],
+			])?>
+
+			<?= $form->field($model, 'fieldContacts')->widget(\kartik\widgets\Select2::className(), [
+			    'data' => ["" => "--- Select Contacts ---"] + Contact::options(),
+			    'options' => [ 'multiple' => TRUE, ],
+			    'pluginOptions' => [ 'allowClear' => true ],
+			])?>
+	    </div>
+	     <div class="col-xs-3">
+		    <?= $form->field($model, 'status', [ 'addon' => ['prepend' => ['content' => '<i class="glyphicon glyphicon-heart"></i>']]])->dropDownList([0 => 'No', 1 => 'Yes'])?>
+		    <?= $form->field($model, 'color_identifier')->widget(\kartik\widgets\ColorInput::classname()) ?>
 	    </div>
     </div>
 
@@ -26,10 +44,6 @@ use kartik\widgets\ActiveForm;
 	    <div class="col-xs-6">
 		    <?= $form->field($model, 'url', [ 'addon' => ['prepend' => ['content' => '<i class="glyphicon glyphicon-link"></i>']] ]) ?>
 		    <?= $form->field($model, 'demo_url', [ 'addon' => ['prepend' => ['content' => '<i class="glyphicon glyphicon-paperclip"></i>']] ]) ?>
-	    </div>
-	    <div class="col-xs-3 col-xs-offset-3">
-		    <?= $form->field($model, 'status', [ 'addon' => ['prepend' => ['content' => '<i class="glyphicon glyphicon-heart"></i>']]])->dropDownList([0 => 'No', 1 => 'Yes'])?>
-		    <?= $form->field($model, 'color_identifier')->widget(\kartik\widgets\ColorInput::classname()) ?>
 	    </div>
     </div>
 

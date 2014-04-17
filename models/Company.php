@@ -87,4 +87,11 @@ class Company extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Department::className(), ['company_id' => 'id']);
     }
+
+    /**
+     * Return the option list suitable for dropDownList
+     */
+    public static function options($q = NULL){
+      return \yii\helpers\ArrayHelper::map(self::find()->where($q)->all(), 'id', 'title');
+    }
 }

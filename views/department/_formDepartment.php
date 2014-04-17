@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use kartik\widgets\ActiveForm;
+use istt\project\models\Company;
+use istt\project\models\Department;
 
 /**
  * @var yii\web\View $this
@@ -18,19 +20,9 @@ use kartik\widgets\ActiveForm;
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'parent')->textInput() ?>
+    <?= $form->field($model, 'parent')->dropDownList(['' => \Yii::t('project', '-- Select Parent Department --')] + Department::options()) ?>
 
-    <?= $form->field($model, 'company_id')->widget(Select2::className(), [
-				    'data' => ['' => '--- Select ---'],
-				    'options' => [
-				    	'placeholder' => 'Select a state ...',
-				    	'multiple' => TRUE,
-				    ],
-				    'pluginOptions' => [
-				        'allowClear' => true
-				    ],
-				]); ?>
-
+    <?= $form->field($model, 'company_id')->dropDownList(Company::options()); ?>
 
     <?= $form->field($model, 'email', [ 'addon' => ['prepend' => ['content'=>'<i class="glyphicon glyphicon-envelope"></i>']] ])->input('email') ?>
 
