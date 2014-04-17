@@ -28,14 +28,11 @@ class TaskLog extends \yii\db\ActiveRecord
         return '{{%task_log}}';
     }
 
-    /**
-    * @inheritdoc
-    */
-    public static function getDb(){
-    	if (\Yii::$app->has('db') && \Yii::$app->db instanceof \yii\db\Connection)
-    		return \Yii::$app->db;
-    	else
-    		return \Yii::$app->db;
+    public function behaviors(){
+        return [
+        	['class' => \yii\behaviors\BlameableBehavior::className()],
+        	['class' => \yii\behaviors\TimestampBehavior::className()],
+        ];
     }
 
     /**

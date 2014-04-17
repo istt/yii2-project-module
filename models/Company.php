@@ -73,6 +73,13 @@ class Company extends \yii\db\ActiveRecord
         ];
     }
 
+    public function behaviors(){
+        return [
+        	['class' => \yii\behaviors\BlameableBehavior::className()],
+        	['class' => \yii\behaviors\TimestampBehavior::className()],
+        ];
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */

@@ -14,38 +14,44 @@ use kartik\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
+	<div class="row">
+	    <div class="col-xs-9">
+		    <?= $form->field($model, 'title', [ 'addon' => ['prepend' => ['content' => '<i class="glyphicon glyphicon-star"></i>']] ]) ?>
+	    </div>
+    </div>
+
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'start_date')->textInput() ?>
+    <div class="row">
+	    <div class="col-xs-6">
+		    <?= $form->field($model, 'url', [ 'addon' => ['prepend' => ['content' => '<i class="glyphicon glyphicon-link"></i>']] ]) ?>
+		    <?= $form->field($model, 'demo_url', [ 'addon' => ['prepend' => ['content' => '<i class="glyphicon glyphicon-paperclip"></i>']] ]) ?>
+	    </div>
+	    <div class="col-xs-3 col-xs-offset-3">
+		    <?= $form->field($model, 'status', [ 'addon' => ['prepend' => ['content' => '<i class="glyphicon glyphicon-heart"></i>']]])->dropDownList([0 => 'No', 1 => 'Yes'])?>
+		    <?= $form->field($model, 'color_identifier')->widget(\kartik\widgets\ColorInput::classname()) ?>
+	    </div>
+    </div>
 
-    <?= $form->field($model, 'end_date')->textInput() ?>
+    <div class="row">
+	    <div class="col-xs-8">
+		    <?= $form->field($model, 'start_date')->widget(\kartik\widgets\DatePicker::className(), [ 'pluginOptions' => [ 'format' => 'yyyy-mm-dd', 'todayHighlight' => true ] ]); ?>
+		    <?= $form->field($model, 'end_date')->widget(\kartik\widgets\DatePicker::className(), [ 'pluginOptions' => [ 'format' => 'yyyy-mm-dd', 'todayHighlight' => true ] ]); ?>
+	    </div>
+	    <div class="col-xs-4">
+		    <?= $form->field($model, 'target_budget', [ 'addon' => ['append' => ['content' => '<i class="glyphicon glyphicon-usd"></i>']]])->textInput(['maxlength' => 19]) ?>
+		    <?= $form->field($model, 'actual_budget', [ 'addon' => ['append' => ['content' => '<i class="glyphicon glyphicon-usd"></i>']]])->textInput(['maxlength' => 19]) ?>
+	    </div>
+    </div>
 
-    <?= $form->field($model, 'status')->textInput() ?>
-
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'created_by')->textInput() ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
-
-    <?= $form->field($model, 'updated_by')->textInput() ?>
-
-    <?= $form->field($model, 'percent_complete')->textInput() ?>
-
-    <?= $form->field($model, 'target_budget')->textInput(['maxlength' => 19]) ?>
-
-    <?= $form->field($model, 'actual_budget')->textInput(['maxlength' => 19]) ?>
-
-    <?= $form->field($model, 'title', [
-				    			'options' => ['maxlength' => 255],
-				    			'addon' => ['prepend' => ['content' => '<i class="glyphicon glyphicon-star"></i>']]
-					]) ?>
-
-    <?= $form->field($model, 'url')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'demo_url')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'color_identifier')->textInput(['maxlength' => 255]) ?>
+    <div class="row">
+	    <div class="col-xs-3">
+	    </div>
+	    <div class="col-xs-3 col-xs-offset-3">
+	    </div>
+	    <div class="col-xs-3">
+	    </div>
+    </div>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('project', 'Create') : Yii::t('project', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
