@@ -1,0 +1,24 @@
+{
+	"name": "istt/yii2-project-module",
+	"description": "A DotProject clone using yii2",
+	"keywords": ["istt", "ndtrung", "yii", "dotproject", "project"],
+	"type": "yii2-module",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Nguyen Dinh Trung",
+			"email": "ndtrung@istt.com.vn",
+			"homepage": "http://istt.com.vn"
+		}
+	],
+	"require": {
+		"yiisoft/yii2": "*",
+		"dektrium/yii2-user": "*",
+		"kartik-v/yii2-markdown": "dev-master"
+	},
+	"autoload": {
+		"psr-4": {
+			"istt\\project\\": ""
+		}
+	}
+}
