@@ -1,14 +1,14 @@
 <?php
 
-namespace vendor\istt\project\models;
+namespace istt\project\models;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use vendor\istt\project\models\Task;
+use istt\project\models\Task;
 
 /**
- * TaskSearch represents the model behind the search form about `vendor\istt\project\models\Task`.
+ * TaskSearch represents the model behind the search form about `istt\project\models\Task`.
  */
 class TaskSearch extends Task
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace vendor\istt\project\controllers;
+namespace istt\project\controllers;
 
 use Yii;
-use vendor\istt\project\models\Project;
-use vendor\istt\project\models\ProjectSearch;
+use istt\project\models\Project;
+use istt\project\models\ProjectSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

@@ -1,14 +1,14 @@
 <?php
 
-namespace vendor\istt\project\models;
+namespace istt\project\models;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use vendor\istt\project\models\Department;
+use istt\project\models\Department;
 
 /**
- * DepartmentSearch represents the model behind the search form about `vendor\istt\project\models\Department`.
+ * DepartmentSearch represents the model behind the search form about `istt\project\models\Department`.
  */
 class DepartmentSearch extends Department
 {

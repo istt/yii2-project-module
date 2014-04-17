@@ -1,14 +1,14 @@
 <?php
 
-namespace vendor\istt\project\models;
+namespace istt\project\models;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use vendor\istt\project\models\Contact;
+use istt\project\models\Contact;
 
 /**
- * ContactSearch represents the model behind the search form about `vendor\istt\project\models\Contact`.
+ * ContactSearch represents the model behind the search form about `istt\project\models\Contact`.
  */
 class ContactSearch extends Contact
 {

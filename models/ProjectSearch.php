@@ -1,14 +1,14 @@
 <?php
 
-namespace vendor\istt\project\models;
+namespace istt\project\models;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use vendor\istt\project\models\Project;
+use istt\project\models\Project;
 
 /**
- * ProjectSearch represents the model behind the search form about `vendor\istt\project\models\Project`.
+ * ProjectSearch represents the model behind the search form about `istt\project\models\Project`.
  */
 class ProjectSearch extends Project
 {

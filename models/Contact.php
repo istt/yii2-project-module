@@ -1,6 +1,6 @@
 <?php
 
-namespace vendor\istt\project\models;
+namespace istt\project\models;
 
 use Yii;
 

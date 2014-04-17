@@ -5,7 +5,7 @@ use yii\widgets\ActiveForm;
 
 /**
  * @var yii\web\View $this
- * @var vendor\istt\project\models\TaskSearch $model
+ * @var istt\project\models\TaskSearch $model
  * @var yii\widgets\ActiveForm $form
  */
 ?>
