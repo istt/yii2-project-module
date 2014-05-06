@@ -10,14 +10,8 @@ use istt\project\models\Task;
  * @var istt\project\models\TaskSearch $searchModel
  */
 
-$this->title = Yii::t('project', 'Tasks');
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="task-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?= Html::a(Yii::t('project', 'Create {modelClass}', [

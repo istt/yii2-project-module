@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use istt\project\models\Task;
 
 /**
  * @var yii\web\View $this
@@ -37,8 +38,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'start_time',
             'end_time',
-            'status',
-            'priority',
+            ['attribute' => 'status', 'value' => Task::statusValue($model->status), 'format' => 'html'],
+            ['attribute' => 'priority', 'value' => Task::priorityValue($model->priority), 'format' => 'html'],
             'percent_complete',
             'created_at:datetime',
             'created_by',

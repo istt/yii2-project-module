@@ -131,6 +131,29 @@ class Project extends \yii\db\ActiveRecord
       return \yii\helpers\ArrayHelper::map(self::find()->where($q)->all(), 'id', 'title');
     }
 
+    const STATUS_FINISHED = 1;
+    const STATUS_INPROGRESS = 0;
+    public static function statusOptions($i = NULL) {
+        	$options = [
+    			self::STATUS_FINISHED		=>	\Yii::t('app', 'Finished'),
+    			self::STATUS_INPROGRESS			=>	\Yii::t('app', 'In Progress'),
+        	];
+        	if (is_null($i)) return $options;
+        	elseif (array_key_exists($i, $options)) return $options[$i];
+        	else return $i;
+        }
+        public static function statusValue($i) {
+        	if (is_null ( $i )) return NULL;
+        	$options = [
+        	self::STATUS_FINISHED => \Yii::t ( 'app', '<span class="label label-success">Finished</span>' ),
+        	self::STATUS_INPROGRESS => \Yii::t ( 'app', '<span class="label label-info">In Progress</span>' ),
+        	];
+        	if (array_key_exists ( $i, $options ))
+        		return $options [$i];
+        	else
+        		return $i;
+        }
+
     /**
      * Insert related departments after save
      */

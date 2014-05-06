@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\grid\GridView;
+use istt\project\models\Project;
 
 /**
  * @var yii\web\View $this
@@ -15,9 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="project-view">
 
-    <h1><small><?= \Yii::t('app', 'Project'); ?>:</small> <?= Html::encode($this->title) ?></h1>
-
-    <p>
+    <p class="pull-right">
         <?= Html::a(Yii::t('project', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a(Yii::t('project', 'Delete'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
@@ -28,15 +27,16 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
+    <h1><small><?= \Yii::t('app', 'Project'); ?>:</small> <?= Html::encode($this->title) ?></h1>
+
+
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'title',
             'description:ntext',
             'start_date',
             'end_date',
-            'status',
+            ['attribute' => 'status', 'value' => Project::statusValue($model->status), 'format' => 'html'],
             'url:url',
             'demo_url:url',
             'percent_complete',
@@ -60,25 +60,4 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <hr>
 <h3><?= \Yii::t('project', 'Tasks') ?></h3>
-<?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'title',
-            'description:ntext',
-            'start_time',
-            'end_time',
-            'status',
-            'priority',
-            // 'percent_complete',
-            // 'project_id',
-            // 'created_at',
-            // 'created_by',
-            // 'updated_at',
-            // 'updated_by',
-
-            ['class' => 'yii\grid\ActionColumn', 'controller' => 'task'],
-        ],
-    ]); ?>
+<?= $this->render('/task/_gridTask', [ 'dataProvider' => $dataProvider, 'searchModel' => $searchModel]); ?>

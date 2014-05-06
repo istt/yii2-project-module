@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use istt\project\models\Project;
 
 /**
  * @var yii\web\View $this
@@ -29,13 +30,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
             'title',
             'description:ntext',
             'start_date',
             'end_date',
-            // 'status',
+            ['attribute' => 'status', 'filter' => Project::statusOptions(), 'value' => function($data){ return Project::statusValue($data->status); }, 'format' => 'html'],
             // 'url:url',
             // 'demo_url:url',
             // 'percent_complete',
