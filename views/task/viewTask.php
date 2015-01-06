@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use istt\project\models\Task;
+use yii\helpers\Markdown;
 
 /**
  * @var yii\web\View $this
@@ -19,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="row">
     	<div class="col-md-12">
-		    <?= kartik\markdown\Markdown::convert($model->description); ?>
+		    <?= Markdown::process($model->description, 'gfm'); ?>
     	</div>
     </div>
     <p>

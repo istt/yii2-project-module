@@ -25,7 +25,10 @@ use istt\project\models\Task;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'title',
-            'description:ntext',
+            ['attribute' => 'description', 'format' => 'html', 'value' => function ($data, $index, $widget){
+            	return \yii\helpers\Markdown::process($data->description, 'gfm');
+            }
+            ],
             'start_time',
             'end_time',
             ['attribute' => 'status', 'filter' => Task::statusOptions(), 'value' => function ($data, $index, $widget){ return Task::statusValue($data->status); }, 'format' => 'html'],
@@ -37,7 +40,10 @@ use istt\project\models\Task;
             // 'updated_at',
             // 'updated_by',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+            		'class' => 'yii\grid\ActionColumn',
+            		'controller' => '/project/task'
+            ],
         ],
     ]); ?>
 

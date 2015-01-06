@@ -46,7 +46,8 @@ use istt\project\models\Task;
 	    </div>
     </div>
 
-    <?= $form->field($model, 'description')->widget(kartik\markdown\MarkdownEditor::classname(), ['height' => 300] );  ?>
+    <?= //$form->field($model, 'description')->widget(kartik\markdown\MarkdownEditor::classname(), ['height' => 300] );
+				    $form->field($model, 'description')->textarea(['cols' => 80, 'rows' => 10]);  ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('project', 'Create') : Yii::t('project', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

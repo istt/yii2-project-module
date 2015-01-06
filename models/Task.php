@@ -50,8 +50,8 @@ class Task extends \yii\db\ActiveRecord
     {
         return [
             [['description'], 'string'],
-            [['start_time', 'end_time'], 'date', 'format' => 'Y-m-d H:i:s'],
-            ['start_time', 'compare', 'compareAttribute' => 'end_time', 'operator' => '<='],
+            [['start_time', 'end_time'], 'date', 'format' => 'php:Y-m-d H:i:s'],
+            [['start_time'], 'compare', 'compareAttribute' => 'end_time', 'operator' => '<='],
             [['status', 'priority', 'project_id', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
             [['percent_complete'], 'number'],
             [['percent_complete'], 'compare', 'compareValue' => 100, 'operator' => '<='],

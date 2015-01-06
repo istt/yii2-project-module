@@ -157,7 +157,7 @@ class Project extends \yii\db\ActiveRecord
     /**
      * Insert related departments after save
      */
-    public function afterSave($insert){
+    public function afterSave($insert, $changedAttributes){
     	$new = $this->fieldDepartments;
     	$old = \yii\helpers\ArrayHelper::getColumn($this->getDepartments()->all(), 'id');
     	$addNew = array_diff($new, $old);
@@ -170,7 +170,7 @@ class Project extends \yii\db\ActiveRecord
     		$projectDepartment->save();
     	}
     	ProjectDepartment::deleteAll(['and', ['project_id' => $this->primaryKey], ['in', 'department_id', $removeOld]]);
-    	return parent::afterSave($insert);
+    	return parent::afterSave($insert, $changedAttributes);
     }
 
     public function afterFind(){
