@@ -7,7 +7,7 @@ use yii\helpers\Html;
  * @var istt\project\models\Contact $model
  */
 
-$this->title = Yii::t('project', 'Create {modelClass}', [
+$this->title = Yii::t('app', 'Create {modelClass}', [
   'modelClass' => 'Contact',
 ]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('project', 'Contacts'), 'url' => ['index']];

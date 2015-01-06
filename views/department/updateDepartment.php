@@ -7,7 +7,7 @@ use yii\helpers\Html;
  * @var istt\project\models\Department $model
  */
 
-$this->title = Yii::t('project', 'Update {modelClass}: ', [
+$this->title = Yii::t('app', 'Update {modelClass}: ', [
   'modelClass' => 'Department',
 ]) . $model->title;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('project', 'Departments'), 'url' => ['index']];

@@ -39,7 +39,7 @@ Last, add the module to your config file
 [php]
 	'modules' => [
 		...
-		'project' => 'istt\np\ProjectModule',
+		'project' => 'istt\project\ProjectModule',
 		...
 	],
 ~~~

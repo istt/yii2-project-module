@@ -10,7 +10,7 @@ class ProjectModule extends \yii\base\Module
     {
         parent::init();
 
-        \Yii::$app->getI18n()->translations['*'] = [
+        \Yii::$app->getI18n()->translations['project'] = [
             'class' => 'yii\i18n\PhpMessageSource',
             'basePath' => __DIR__ . '/messages',
         ];

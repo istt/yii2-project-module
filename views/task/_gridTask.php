@@ -14,7 +14,7 @@ use istt\project\models\Task;
 <div class="task-index">
 
     <p>
-        <?= Html::a(Yii::t('project', 'Create {modelClass}', [
+        <?= Html::a(Yii::t('app', 'Create {modelClass}', [
   'modelClass' => 'Task',
 ]), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
